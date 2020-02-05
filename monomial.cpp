@@ -7,28 +7,16 @@ Monomial::IndexType Monomial::numberOfVariables() const
     return _degreesOfMonomialElements.size();
 }
 
-void Monomial::setDegreeForParticularElement(IndexType variableIndex, DegreeType degree) {
-    if (variableIndex >= numberOfVariables())
-        throw;
-    _degreesOfMonomialElements[variableIndex] = degree;
-}
-
-Monomial::DegreeType Monomial::getDegreeOfParticularElement(IndexType variableIndex) const {
+Monomial::DegreeType Monomial::getDegree(IndexType variableIndex) const {
     if (variableIndex >= numberOfVariables())
         throw;
     return _degreesOfMonomialElements[variableIndex];
 }
 
-double Monomial::operator[](double variableIndex) const
-{
-    if (variableIndex <= numberOfVariables())
-        return _degreesOfMonomialElements[numberOfVariables()];
-}
-
-double Monomial::operator[](double variableIndex)
-{
-    if (variableIndex <= numberOfVariables())
-        return _degreesOfMonomialElements[numberOfVariables()];
+void Monomial::setDegree(IndexType variableIndex, DegreeType degree) {
+    if (variableIndex >= numberOfVariables())
+        throw;
+    _degreesOfMonomialElements[variableIndex] = degree;
 }
 
 Monomial& Monomial::operator=(const Monomial& other) {

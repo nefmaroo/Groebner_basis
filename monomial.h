@@ -11,10 +11,8 @@ public:
     using Degrees = std::vector<DegreeType>;
     Monomial() = default;
     IndexType numberOfVariables() const;
-    DegreeType getDegreeOfParticularElement(IndexType variableIndex) const;
-    void setDegreeForParticularElement(IndexType variableIndex, DegreeType degree);
-    double operator[](double variableIndex) const;
-    double operator[](double variableIndex);
+    DegreeType getDegree(IndexType variableIndex) const;
+    void setDegree(IndexType variableIndex, DegreeType degree);
     Monomial& operator=(const Monomial& other);
     Monomial& operator*=(const Monomial& other);
     Monomial operator*(const Monomial& other);
