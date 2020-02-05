@@ -6,6 +6,9 @@
 class Monomial {
 
 public:
+    using DegreeType = unsigned int;
+    using IndexType = size_t;
+    using Degrees = std::vector<DegreeType>;
     Monomial() = default;
     double numberOfVariables() const;
     int getDegreeOfParticularElement(double variableIndex) const;
@@ -19,7 +22,6 @@ public:
     Monomial operator/(const Monomial& other);
     bool operator==(const Monomial& other) const;
     bool operator!=(const Monomial& other) const;
-    typedef std::vector<int> Degrees;
 private:
     Degrees _degreesOfMonomialElements;
 };
