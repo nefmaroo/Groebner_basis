@@ -10,9 +10,9 @@ public:
     using IndexType = size_t;
     using Degrees = std::vector<DegreeType>;
     Monomial() = default;
-    double numberOfVariables() const;
-    int getDegreeOfParticularElement(double variableIndex) const;
-    void setDegreeForParticularElement(double variableIndex, int degree);
+    IndexType numberOfVariables() const;
+    DegreeType getDegreeOfParticularElement(IndexType variableIndex) const;
+    void setDegreeForParticularElement(IndexType variableIndex, DegreeType degree);
     double operator[](double variableIndex) const;
     double operator[](double variableIndex);
     Monomial& operator=(const Monomial& other);

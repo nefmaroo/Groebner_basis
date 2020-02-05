@@ -2,18 +2,18 @@
 
 // дописать сообщения к throw
 
-double Monomial::numberOfVariables() const
+Monomial::IndexType Monomial::numberOfVariables() const
 {
     return _degreesOfMonomialElements.size();
 }
 
-void Monomial::setDegreeForParticularElement(double variableIndex, int degree) {
+void Monomial::setDegreeForParticularElement(IndexType variableIndex, DegreeType degree) {
     if (variableIndex >= numberOfVariables())
         throw;
     _degreesOfMonomialElements[variableIndex] = degree;
 }
 
-int Monomial::getDegreeOfParticularElement(double variableIndex) const {
+Monomial::DegreeType Monomial::getDegreeOfParticularElement(IndexType variableIndex) const {
     if (variableIndex >= numberOfVariables())
         throw;
     return _degreesOfMonomialElements[variableIndex];
