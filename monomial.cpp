@@ -27,20 +27,20 @@ Monomial& Monomial::operator=(const Monomial& other) {
 Monomial& Monomial::operator*=(const Monomial& other) {
     if (numberOfVariables() < other.numberOfVariables())
         degrees_.resize(other.numberOfVariables());
-    for (int i = 0; i < numberOfVariables(); ++i) {
+    for (IndexType i = 0; i < numberOfVariables(); ++i) {
         degrees_[i] += other.getDegree(i);
     }
     return *this;
 }
 
-Monomial Monomial::operator*(const Monomial& other) {
+Monomial Monomial::operator*(const Monomial& other) const {
     Monomial newMonomial = *this;
     newMonomial *= other;
     return newMonomial;
 }
 
 Monomial& Monomial::operator/=(const Monomial& other) {
-    for (int i = 0; i < other.numberOfVariables(); ++i) {
+    for (IndexType i = 0; i < other.numberOfVariables(); ++i) {
         if (degrees_[i] < other.getDegree(i))
             throw;
         degrees_[i] -= other.getDegree(i);
@@ -48,7 +48,7 @@ Monomial& Monomial::operator/=(const Monomial& other) {
     return *this;
 }
 
-Monomial Monomial::operator/(const Monomial& other) {
+Monomial Monomial::operator/(const Monomial& other) const {
     Monomial newMonomial = *this;
     newMonomial /= other;
     return newMonomial;
