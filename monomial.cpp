@@ -54,13 +54,11 @@ Monomial Monomial::operator/(const Monomial& other) const {
     return newMonomial;
 }
 
-bool Monomial::operator==(const Monomial& other) const
-{
+bool Monomial::operator==(const Monomial& other) const {
      return degrees_ == other.degrees_;
 }
 
-bool Monomial::operator!=(const Monomial& other) const
-{
+bool Monomial::operator!=(const Monomial& other) const {
     return !(*this == other);
 }
 
