@@ -4,31 +4,31 @@
 
 Monomial::IndexType Monomial::numberOfVariables() const
 {
-    return _degreesOfMonomialElements.size();
+    return degrees_.size();
 }
 
 Monomial::DegreeType Monomial::getDegree(IndexType variableIndex) const {
     if (variableIndex >= numberOfVariables())
         throw;
-    return _degreesOfMonomialElements[variableIndex];
+    return degrees_[variableIndex];
 }
 
 void Monomial::setDegree(IndexType variableIndex, DegreeType degree) {
     if (variableIndex >= numberOfVariables())
         throw;
-    _degreesOfMonomialElements[variableIndex] = degree;
+    degrees_[variableIndex] = degree;
 }
 
 Monomial& Monomial::operator=(const Monomial& other) {
-    _degreesOfMonomialElements = other._degreesOfMonomialElements;
+    degrees_ = other.degrees_;
     return *this;
 }
 
 Monomial& Monomial::operator*=(const Monomial& other) {
     if (numberOfVariables() < other.numberOfVariables())
-        _degreesOfMonomialElements.resize(other.numberOfVariables());
+        degrees_.resize(other.numberOfVariables());
     for (int i = 0; i < numberOfVariables(); ++i) {
-        _degreesOfMonomialElements[i] += other[i];
+        degrees_[i] += other.getDegree(i);
     }
     return *this;
 }
@@ -41,9 +41,9 @@ Monomial Monomial::operator*(const Monomial& other) {
 
 Monomial& Monomial::operator/=(const Monomial& other) {
     for (int i = 0; i < other.numberOfVariables(); ++i) {
-        if (_degreesOfMonomialElements[i] < other[i])
+        if (degrees_[i] < other.getDegree(i))
             throw;
-        _degreesOfMonomialElements[i] -= other[i];
+        degrees_[i] -= other.getDegree(i);
     }
     return *this;
 }
@@ -56,11 +56,12 @@ Monomial Monomial::operator/(const Monomial& other) {
 
 bool Monomial::operator==(const Monomial& other) const
 {
-     return _degreesOfMonomialElements == other._degreesOfMonomialElements;
+     return degrees_ == other.degrees_;
 }
 
 bool Monomial::operator!=(const Monomial& other) const
 {
     return !(*this == other);
 }
+
 

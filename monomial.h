@@ -21,7 +21,8 @@ public:
     bool operator==(const Monomial& other) const;
     bool operator!=(const Monomial& other) const;
 private:
-    Degrees _degreesOfMonomialElements;
+    Degrees degrees_;
 };
 
 #endif //GROEBNER_BASIS_MONOMIAL_H
+
