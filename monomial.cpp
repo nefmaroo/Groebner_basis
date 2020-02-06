@@ -9,13 +9,13 @@ Monomial::IndexType Monomial::numberOfVariables() const
 
 Monomial::DegreeType Monomial::getDegree(IndexType variableIndex) const {
     if (variableIndex >= numberOfVariables())
-        throw;
+        return 0;
     return degrees_[variableIndex];
 }
 
 void Monomial::setDegree(IndexType variableIndex, DegreeType degree) {
     if (variableIndex >= numberOfVariables())
-        throw;
+        degrees_.resize(variableIndex + 1, 0);
     degrees_[variableIndex] = degree;
 }
 
