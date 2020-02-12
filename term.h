@@ -3,12 +3,13 @@
 
 #include "monomial.h"
 
-class Term : public Monomial
-{
+template<class TFieldType>
+class Term {
 public:
 
 private:
-
+    TFieldType coefficient_;
+    Monomial monomial_;
 };
 
 #endif //UNTITLED27_TERM_H
