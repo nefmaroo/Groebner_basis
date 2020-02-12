@@ -1,5 +1,6 @@
 #include "monomial.h"
 #include <numeric>
+#include <cassert>
 
 // дописать сообщения к throw
 
@@ -44,8 +45,7 @@ Monomial Monomial::operator*(const Monomial& other) const {
 
 Monomial& Monomial::operator/=(const Monomial& other) {
     for (IndexType i = 0; i < other.numberOfVariables(); ++i) {
-        if (degrees_[i] < other.getDegree(i))
-            throw;
+        assert(degrees_[i] < other.getDegree(i) && "degree of divider can't be less than degree of the dividend");
         degrees_[i] -= other.getDegree(i);
     }
     shrink();
