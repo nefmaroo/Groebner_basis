@@ -1,10 +1,16 @@
 #include "monomial.h"
+#include <numeric>
 
 // дописать сообщения к throw
 
-Monomial::IndexType Monomial::numberOfVariables() const
-{
+
+Monomial::IndexType Monomial::numberOfVariables() const {
     return degrees_.size();
+}
+
+
+Monomial::DegreeType Monomial::getTotalDegree() const {
+    return std::accumulate(degrees_.begin(), degrees_.end(), DegreeType(0));
 }
 
 Monomial::DegreeType Monomial::getDegree(IndexType variableIndex) const {
@@ -18,11 +24,6 @@ void Monomial::setDegree(IndexType variableIndex, DegreeType degree) {
         degrees_.resize(variableIndex + 1, 0);
     degrees_[variableIndex] = degree;
     shrink();
-}
-
-Monomial& Monomial::operator=(const Monomial& other) {
-    degrees_ = other.degrees_;
-    return *this;
 }
 
 Monomial& Monomial::operator*=(const Monomial& other) {
@@ -58,7 +59,7 @@ Monomial Monomial::operator/(const Monomial& other) const {
 }
 
 bool Monomial::operator==(const Monomial& other) const {
-     return degrees_ == other.degrees_;
+    return degrees_ == other.degrees_;
 }
 
 bool Monomial::operator!=(const Monomial& other) const {
@@ -67,9 +68,9 @@ bool Monomial::operator!=(const Monomial& other) const {
 
 void Monomial::shrink() {
     IndexType i = numberOfVariables() - 1;
-        while (degrees_[i] == 0 && i >= 0) {
-            degrees_.pop_back();
-            --i;
-        }
+    while (degrees_[i] == 0 && i >= 0) {
+        degrees_.pop_back();
+        --i;
+    }
 }
 

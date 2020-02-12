@@ -1,5 +1,6 @@
 #ifndef GROEBNER_BASIS_MONOMIAL_H
 #define GROEBNER_BASIS_MONOMIAL_H
+
 #include<iostream>
 #include<vector>
 
@@ -10,9 +11,9 @@ public:
     using IndexType = size_t;
     using Degrees = std::vector<DegreeType>;
     IndexType numberOfVariables() const;
+    DegreeType getTotalDegree() const;
     DegreeType getDegree(IndexType variableIndex) const;
     void setDegree(IndexType variableIndex, DegreeType degree);
-    Monomial& operator=(const Monomial& other);
     Monomial& operator*=(const Monomial& other);
     Monomial operator*(const Monomial& other) const;
     Monomial& operator/=(const Monomial& other);
