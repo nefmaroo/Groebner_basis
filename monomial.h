@@ -9,17 +9,17 @@ public:
     using DegreeType = unsigned int;
     using IndexType = size_t;
     using Degrees = std::vector<DegreeType>;
-    Monomial() = default;
     IndexType numberOfVariables() const;
     DegreeType getDegree(IndexType variableIndex) const;
     void setDegree(IndexType variableIndex, DegreeType degree);
     Monomial& operator=(const Monomial& other);
     Monomial& operator*=(const Monomial& other);
-    Monomial operator*(const Monomial& other);
+    Monomial operator*(const Monomial& other) const;
     Monomial& operator/=(const Monomial& other);
-    Monomial operator/(const Monomial& other);
+    Monomial operator/(const Monomial& other) const;
     bool operator==(const Monomial& other) const;
     bool operator!=(const Monomial& other) const;
+    void shrink();
 private:
     Degrees degrees_;
 };

@@ -17,6 +17,7 @@ void Monomial::setDegree(IndexType variableIndex, DegreeType degree) {
     if (variableIndex >= numberOfVariables())
         degrees_.resize(variableIndex + 1, 0);
     degrees_[variableIndex] = degree;
+    shrink();
 }
 
 Monomial& Monomial::operator=(const Monomial& other) {
@@ -30,6 +31,7 @@ Monomial& Monomial::operator*=(const Monomial& other) {
     for (IndexType i = 0; i < numberOfVariables(); ++i) {
         degrees_[i] += other.getDegree(i);
     }
+    shrink();
     return *this;
 }
 
@@ -45,6 +47,7 @@ Monomial& Monomial::operator/=(const Monomial& other) {
             throw;
         degrees_[i] -= other.getDegree(i);
     }
+    shrink();
     return *this;
 }
 
@@ -62,4 +65,11 @@ bool Monomial::operator!=(const Monomial& other) const {
     return !(*this == other);
 }
 
+void Monomial::shrink() {
+    IndexType i = numberOfVariables() - 1;
+        while (degrees_[i] == 0 && i >= 0) {
+            degrees_.pop_back();
+            --i;
+        }
+}
 
