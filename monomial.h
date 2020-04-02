@@ -1,10 +1,10 @@
 #ifndef GROEBNER_BASIS_MONOMIAL_H
 #define GROEBNER_BASIS_MONOMIAL_H
 
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 
-class Monomial {
+class Monomial { //?operator <<, constructor?
 
 public:
     using DegreeType = unsigned int;

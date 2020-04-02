@@ -1,0 +1,8 @@
+//
+// Created by macbook on 14.02.2020.
+//
+
+#ifndef GROEBNER_BASIS_MONOMIAL_ORDER_H
+#define GROEBNER_BASIS_MONOMIAL_ORDER_H
+
+#endif //GROEBNER_BASIS_MONOMIAL_ORDER_H

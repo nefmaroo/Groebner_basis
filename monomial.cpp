@@ -2,8 +2,6 @@
 #include <numeric>
 #include <cassert>
 
-// дописать сообщения к throw
-
 
 Monomial::IndexType Monomial::numberOfVariables() const {
     return degrees_.size();
@@ -44,8 +42,8 @@ Monomial Monomial::operator*(const Monomial& other) const {
 }
 
 Monomial& Monomial::operator/=(const Monomial& other) {
+    assert(numberOfVariables() >= other.numberOfVariables() && "Cannot divide one monomial by another one");
     for (IndexType i = 0; i < other.numberOfVariables(); ++i) {
-        assert(degrees_[i] < other.getDegree(i) && "degree of divider can't be less than degree of the dividend");
         degrees_[i] -= other.getDegree(i);
     }
     shrink();
@@ -68,9 +66,7 @@ bool Monomial::operator!=(const Monomial& other) const {
 
 void Monomial::shrink() {
     IndexType i = numberOfVariables() - 1;
-    while (degrees_[i] == 0 && i >= 0) {
+    while(!degrees_.empty() && degrees_.back() == 0)
         degrees_.pop_back();
-        --i;
-    }
 }
 
