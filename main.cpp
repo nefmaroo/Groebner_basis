@@ -3,6 +3,7 @@
 
 int main()
 {
-    testMonomial();
+    //testMonomial();
+    testTerm();
     return 0;
 }
