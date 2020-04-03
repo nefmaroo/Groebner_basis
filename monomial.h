@@ -11,7 +11,8 @@ namespace Groebner {
         using DegreeType = unsigned int;
         using IndexType = size_t;
         using Degrees = std::vector<DegreeType>;
-        Monomial(Degrees degree_list) : degrees_(degree_list) {
+        Monomial() = default;
+        explicit Monomial(const Degrees& degree_list) : degrees_(degree_list) {
             shrink();
         }
         IndexType numberOfVariables() const;
