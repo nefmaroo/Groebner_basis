@@ -3,5 +3,6 @@
 
 void testMonomial();
 void testTerm();
+void testMonomialOrder();
 
 #endif //GROEBNER_BASIS_TESTS_H

@@ -4,6 +4,7 @@
 int main()
 {
     //testMonomial();
-    testTerm();
+    //testTerm();
+    testMonomialOrder();
     return 0;
 }
