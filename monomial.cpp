@@ -20,10 +20,11 @@ namespace Groebner {
     }
 
     void Monomial::setDegree(IndexType variableIndex, DegreeType degree) {
+        if (degree == 0)
+            return;
         if (variableIndex >= numberOfVariables())
             degrees_.resize(variableIndex + 1, 0);
         degrees_[variableIndex] = degree;
-        shrink();
     }
 
     Monomial& Monomial::operator*=(const Monomial& other) {
@@ -66,26 +67,29 @@ namespace Groebner {
         return !(*this == other);
     }
 
+    void Monomial::printVariable(std::ostream& out, IndexType index, DegreeType degree) {
+        if (degree == 1)
+            out << "x_" << index + 1;
+        else if (degree != 0)
+            out << "(x_" << index + 1 << ")" << "^" << degree;
+
+    }
+
     void Monomial::shrink() {
         while (!degrees_.empty() && degrees_.back() == 0)
             degrees_.pop_back();
     }
 
     std::ostream& operator<<(std::ostream& out, const Monomial& monomial) noexcept {
-
-        for (Monomial::IndexType i = 0; i < monomial.numberOfVariables() - 1; ++i) {
-            if (monomial.getDegree(i) == 1)
-                out << "x_" << i + 1 << " * ";
-            else if (monomial.getDegree(i) != 0)
-                out << "(x_" << i + 1 << ")" << "^" << monomial.getDegree(i) << " * ";
-
+        if (monomial.numberOfVariables() == 0)
+            return out << "1";
+        Monomial::IndexType index = 0;
+        for (; index < monomial.numberOfVariables() - 1; ++index) {
+            Monomial::printVariable(out, index, monomial.getDegree(index));
+            if (monomial.getDegree(index) != 0)
+                out << " * ";
         }
-        Monomial::IndexType lastIndex = monomial.getDegree(monomial.numberOfVariables() - 1);
-        if (lastIndex == 1)
-            out << "x_" << monomial.numberOfVariables();
-        else
-            out << "(x_" << monomial.numberOfVariables() << ")" << "^" << lastIndex;
+        Monomial::printVariable(out, index, monomial.getDegree(index));
         return out;
     }
-
 }
