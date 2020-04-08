@@ -1,10 +1,14 @@
 #include "monomial.h"
 
+
 void testMonomial() {
+
+    namespace gb = Groebner;
+    using gb::Monomial;
 
     // input/output test
     std::cout << "1) Test monomial input:\n";
-    Groebner::Monomial monomial1({5, 4, 0, 1, 0, 0}), monomial2({0, 2, 2, 3, 5});
+    Monomial monomial1({5, 4, 0, 1, 0, 0}), monomial2({0, 2, 2, 3, 5});
     std::cout << "monomial1 is " << monomial1 << "\n";
     std::cout << "monomial2 is " << monomial2 << "\n\n";
 
@@ -19,7 +23,7 @@ void testMonomial() {
 
     // complex operations test
     std::cout << "3) Test complex monomial operations:\n";
-    Groebner::Monomial monomial3({5, 0, 0, 1});
+    Monomial monomial3({5, 0, 0, 1});
     std::cout << "monomial1 is " << monomial1 << "\n";
     std::cout << "monomial2 is " << monomial2 << "\n";
     std::cout << "monomial3 is " << monomial3 << "\n";
@@ -27,7 +31,7 @@ void testMonomial() {
 
     // comparison test
     std::cout << "4) Test for monomial comparison:\n";
-    Groebner::Monomial monomial4({1, 3, 0, 0}), monomial5({1, 3}), monomial6({5, 0, 3});
+    Monomial monomial4({1, 3, 0, 0}), monomial5({1, 3}), monomial6({5, 0, 3});
     std::cout << "monomial4 is " << monomial4 << "\n";
     std::cout << "monomial5 is " << monomial5 << "\n";
     std::cout << "monomial6 is " << monomial6 << "\n\n";
