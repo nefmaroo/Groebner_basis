@@ -1,42 +1,50 @@
 #pragma once
 
 #include "monomial.h"
-#include "./boost/rational.hpp"
+//#include "./boost/rational.hpp"
 
 namespace Groebner {
     template<class TFieldType>
     class Term {
     public:
-        explicit Term(const Monomial& monomial, const TFieldType& coefficientType = static_cast<TFieldType>(0)) :
-        monomial_(monomial), coefficient_(coefficientType) {
+        Term() = default;
+
+        Term(TFieldType coefficient, Monomial monomial)
+                : coefficient_(std::move(coefficient)), monomial_(std::move(monomial)) {
             reduceMonomial();
         }
+
         const TFieldType& getCoefficient() const;
         const Monomial& getMonomial() const;
         void setCoefficient(const TFieldType& coefficient);
         Term& operator*=(const Term<TFieldType>& other);
+
         friend Term operator*(const Term& lhv, const Term& rhv) {
             Term newTerm = lhv;
             newTerm *= rhv;
             return newTerm;
         }
+
         Term& operator/=(const Term& other);
+
         friend Term operator/(const Term& lhv, const Term& rhv) {
             Term newTerm = lhv;
             newTerm /= rhv;
             return newTerm;
         }
+
         friend bool operator==(const Term<TFieldType>& lhv, const Term<TFieldType>& rhv) {
             return (lhv.coefficient_ == rhv.coefficient_) && (lhv.monomial_ == rhv.monomial_);
         }
+
         friend bool operator!=(const Term<TFieldType>& lhv, const Term<TFieldType>& rhv) {
             return !(lhv == rhv);
         }
 
     private:
         void reduceMonomial();
-        TFieldType coefficient_;
-        Monomial monomial_;
+        TFieldType coefficient_ = TFieldType(0);
+        Monomial monomial_ = Monomial();
     };
 
     template<class TFieldType>
@@ -74,30 +82,20 @@ namespace Groebner {
 
     template<class TFieldType>
     void Term<TFieldType>::reduceMonomial() {
-        if (coefficient_ == static_cast<TFieldType>(0))
+        if (coefficient_ == TFieldType(0))
             monomial_ = Monomial();
     }
 
     template<class TFieldType>
     std::ostream& operator<<(std::ostream& out, const Term<TFieldType>& term) noexcept {
-        switch(term.coefficient_)
-        {
-            case(static_cast<TFieldType>(0)):
-                out << 0;
-                break;
-            case(static_cast<TFieldType>(1)):
-                out << term.getMonomial();
-                break;
-            case(static_cast<TFieldType>(-1)):
-                out << "-" << term.getMonomial();
-                break;
-            default:
-                out << term.getCoefficient() << term.getMonomial();
-                break;
-        }
-        return out;
+        if (term.getCoefficient() == TFieldType(0))
+            return out << 0;
+        if (term.getCoefficient() == TFieldType(1))
+            return out << term.getMonomial();
+        if (term.getCoefficient() == TFieldType(-1))
+            return out << "-" << term.getMonomial();
+        return out << term.getCoefficient() << term.getMonomial();
     }
-
 }
 
 
