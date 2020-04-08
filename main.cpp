@@ -1,10 +1,14 @@
 #include <iostream>
 #include "tests.h"
 
+void runAllTests() {
+    //testMonomial();
+    testTerm();
+    //testMonomialOrder();
+}
+
 int main()
 {
-    //testMonomial();
-    //testTerm();
-    testMonomialOrder();
+    runAllTests();
     return 0;
 }
