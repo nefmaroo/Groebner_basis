@@ -1,0 +1,8 @@
+//
+// Created by macbook on 23.04.2020.
+//
+
+#ifndef GROEBNER_BASIS_POLYNOMIAL_H
+#define GROEBNER_BASIS_POLYNOMIAL_H
+
+#endif //GROEBNER_BASIS_POLYNOMIAL_H
