@@ -13,7 +13,7 @@ void testMonomial() {
     std::cout << "monomial2 is " << monomial2 << "\n\n";
 
     // math operation test
-    std::cout << "2) Test monomial operations:\n";
+    std::cout << "2) Test monomial arithmetic operations:\n";
     std::cout << "monomial1 * monomial2 =  " << monomial1 * monomial2 << "\n\n";
     monomial1 *= monomial2;
     std::cout << "monomial1 *= monomial2: \n" << "monomial1 = " << monomial1 <<"\n\n";
