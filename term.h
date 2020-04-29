@@ -1,7 +1,6 @@
 #pragma once
 
 #include "monomial.h"
-//#include "./boost/rational.hpp"
 
 namespace Groebner {
     template<class TFieldType>
@@ -13,7 +12,6 @@ namespace Groebner {
                 : coefficient_(std::move(coefficient)), monomial_(std::move(monomial)) {
             reduceMonomial();
         }
-
         const TFieldType& getCoefficient() const;
         const Monomial& getMonomial() const;
         void setCoefficient(const TFieldType& coefficient);
@@ -40,6 +38,12 @@ namespace Groebner {
         friend bool operator!=(const Term<TFieldType>& lhv, const Term<TFieldType>& rhv) {
             return !(lhv == rhv);
         }
+
+        template<class Comp>
+        static bool cmp(const Term<TFieldType>& lhv, const Term<TFieldType>& rhv);
+
+        template<class Comp>
+        bool operator()(const Term<TFieldType>& lhv, const Term<TFieldType>& rhv) const;
 
     private:
         void reduceMonomial();
@@ -87,6 +91,23 @@ namespace Groebner {
     }
 
     template<class TFieldType>
+    template<class Comp>
+    bool Term<TFieldType>::cmp(const Term<TFieldType>& lhv, const Term<TFieldType>& rhv) {
+        if (lhv.getCoefficient() < rhv.getCoefficient())
+            return true;
+        else if (lhv.getCoefficient() < rhv.getCoefficient())
+            return false;
+        return Comp::cmp(lhv.getMonomial(), rhv.getMonomial());
+    }
+
+    template<class TFieldType>
+    template<class Comp>
+    bool Term<TFieldType>::operator()(const Term<TFieldType>& lhv, const Term<TFieldType>& rhv) const {
+        return Comp::cmp(lhv, rhv);
+    }
+
+
+    template<class TFieldType>
     std::ostream& operator<<(std::ostream& out, const Term<TFieldType>& term) noexcept {
         if (term.getCoefficient() == TFieldType(0))
             return out << 0;
@@ -94,6 +115,8 @@ namespace Groebner {
             return out << term.getMonomial();
         if (term.getCoefficient() == TFieldType(-1))
             return out << "-" << term.getMonomial();
+        if (term.getMonomial().numberOfVariables() == 0)
+            return out << term.getCoefficient();
         return out << term.getCoefficient() << term.getMonomial();
     }
 }
