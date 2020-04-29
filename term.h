@@ -15,6 +15,7 @@ namespace Groebner {
         const TFieldType& getCoefficient() const;
         const Monomial& getMonomial() const;
         void setCoefficient(const TFieldType& coefficient);
+        void setMonomial(const Monomial& monomial);
         Term& operator*=(const Term<TFieldType>& other);
 
         friend Term operator*(const Term& lhv, const Term& rhv) {
@@ -68,6 +69,12 @@ namespace Groebner {
     }
 
     template<class TFieldType>
+    void Term<TFieldType>::setMonomial(const Monomial& monomial) {
+        if (coefficient_ != TFieldType(0))
+            monomial_ = monomial;
+    }
+
+    template<class TFieldType>
     Term<TFieldType>& Term<TFieldType>::operator*=(const Term<TFieldType>& other) {
         coefficient_ *= other.coefficient_;
         monomial_ *= other.monomial_;
@@ -97,7 +104,8 @@ namespace Groebner {
             return true;
         else if (lhv.getCoefficient() < rhv.getCoefficient())
             return false;
-        return Comp::cmp(lhv.getMonomial(), rhv.getMonomial());
+        Comp orderType;
+        return orderType(lhv.getMonomial(), rhv.getMonomial());
     }
 
     template<class TFieldType>
