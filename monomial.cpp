@@ -16,6 +16,7 @@ namespace Groebner {
     Monomial::DegreeType Monomial::getDegree(IndexType variableIndex) const {
         if (variableIndex >= numberOfVariables())
             return 0;
+        //assert(variableIndex >= numberOfVariables() && "Trying to get the degree of non-existing variable");
         return degrees_[variableIndex];
     }
 
@@ -46,7 +47,7 @@ namespace Groebner {
     Monomial& Monomial::operator/=(const Monomial& other) {
         assert(numberOfVariables() >= other.numberOfVariables() && "Cannot divide one monomial by another one");
         for (IndexType i = 0; i < other.numberOfVariables(); ++i) {
-            assert(degrees_[i] >= other.getDegree(i) && "Cannot divide one monomial by another one");
+            assert(degrees_[i] >= other.getDegree(i) && "Cannot divide one monomial by another one"); //add details?
             degrees_[i] -= other.getDegree(i);
         }
         shrink();
@@ -72,7 +73,6 @@ namespace Groebner {
             out << "x_" << index + 1;
         else if (degree != 0)
             out << "(x_" << index + 1 << ")" << "^" << degree;
-
     }
 
     void Monomial::shrink() {
@@ -80,7 +80,7 @@ namespace Groebner {
             degrees_.pop_back();
     }
 
-    std::ostream& operator<<(std::ostream& out, const Monomial& monomial) noexcept {
+    std::ostream& operator<<(std::ostream& out, const Monomial& monomial) {
         if (monomial.numberOfVariables() == 0)
             return out << "1";
         Monomial::IndexType index = 0;

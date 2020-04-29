@@ -13,7 +13,7 @@ namespace Groebner {
         using IndexType = size_t;
         using Degrees = std::vector<DegreeType>;
         Monomial() = default;
-        explicit Monomial(std::initializer_list<DegreeType> degree_list) : degrees_(degree_list) {
+        Monomial(std::initializer_list<DegreeType> degree_list) : degrees_(degree_list) {
             shrink();
         }
         IndexType numberOfVariables() const;
@@ -26,12 +26,12 @@ namespace Groebner {
         Monomial operator/(const Monomial& other) const;
         bool operator==(const Monomial& other) const;
         bool operator!=(const Monomial& other) const;
-        static void printVariable(std::ostream&, IndexType, DegreeType);
+        friend std::ostream& operator<<(std::ostream& out, const Monomial& monomial);
     private:
         void shrink();
+        static void printVariable(std::ostream&, IndexType, DegreeType);
         Degrees degrees_;
     };
-    std::ostream& operator<<(std::ostream& out, const Monomial& monomial) noexcept;
 
 }
 
