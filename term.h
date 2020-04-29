@@ -117,7 +117,7 @@ namespace Groebner {
             return out << "-" << term.getMonomial();
         if (term.getMonomial().numberOfVariables() == 0)
             return out << term.getCoefficient();
-        return out << term.getCoefficient() << term.getMonomial();
+        return out << term.getCoefficient() << " * " << term.getMonomial();
     }
 }
 
