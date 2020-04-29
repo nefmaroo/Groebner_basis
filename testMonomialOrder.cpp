@@ -9,9 +9,9 @@ void printComparisonResult(const Groebner::Monomial& monomial1, const Groebner::
     std::cout << "monomial" << index2 << " = " << monomial2 << "\n";
     OrderType orderType;
     if (orderType(monomial1, monomial2))
-        std::cout << "Result: monomial" << index1 << " > monomial" << index2 << "\n\n";
-    else
         std::cout << "Result: monomial" << index1 << " < monomial" << index2 << "\n\n";
+    else
+        std::cout << "Result: monomial" << index1 << " > monomial" << index2 << "\n\n";
 }
 
 void testMonomialOrder() {

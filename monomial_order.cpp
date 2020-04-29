@@ -7,7 +7,7 @@ namespace Groebner {
         Monomial::IndexType variableIndex = 0;
         while (first.getDegree(variableIndex) == second.getDegree(variableIndex))
             ++variableIndex;
-        return first.getDegree(variableIndex) > second.getDegree(variableIndex);
+        return first.getDegree(variableIndex) < second.getDegree(variableIndex);
     }
 
 
@@ -16,7 +16,7 @@ namespace Groebner {
     }
 
     bool Deg::cmp(const Monomial& first, const Monomial& second) {
-        return first.getTotalDegree() > second.getTotalDegree();
+        return first.getTotalDegree() < second.getTotalDegree();
     }
 
 
