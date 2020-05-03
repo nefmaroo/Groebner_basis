@@ -16,7 +16,6 @@ namespace Groebner {
     Monomial::DegreeType Monomial::getDegree(IndexType variableIndex) const {
         if (variableIndex >= numberOfVariables())
             return 0;
-        //assert(variableIndex >= numberOfVariables() && "Trying to get the degree of non-existing variable");
         return degrees_[variableIndex];
     }
 
@@ -66,6 +65,14 @@ namespace Groebner {
 
     bool Monomial::operator!=(const Monomial& other) const {
         return !(*this == other);
+    }
+
+    Monomial lcm(const Monomial& lhv, const Monomial& rhv) {
+        Monomial result = lhv;
+        Monomial::IndexType maxNumberOfVariables = std::max(lhv.numberOfVariables(), rhv.numberOfVariables());
+        for (Monomial::IndexType index = 0; index < maxNumberOfVariables; ++index)
+            result.setDegree(index, std::max(lhv.getDegree(index), rhv.getDegree(index)));
+        return result;
     }
 
     void Monomial::printVariable(std::ostream& out, IndexType index, DegreeType degree) {

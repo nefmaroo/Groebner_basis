@@ -26,6 +26,7 @@ namespace Groebner {
         Monomial operator/(const Monomial& other) const;
         bool operator==(const Monomial& other) const;
         bool operator!=(const Monomial& other) const;
+        friend Monomial lcm(const Monomial& lhv, const Monomial& rhv);
         friend std::ostream& operator<<(std::ostream& out, const Monomial& monomial);
     private:
         void shrink();
