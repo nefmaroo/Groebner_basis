@@ -12,6 +12,40 @@ namespace Groebner {
         Polynomial() = default;
         Polynomial(const Terms& polynomial) : polynomial_(polynomial) {
         }
+        const Terms& getPolynomial() const;
+
+        Polynomial& operator+=(const Term<TFieldType>& term);
+        Polynomial& operator-=(const Term<TFieldType>& term);
+        Polynomial& operator*=(const Term<TFieldType>& term);
+
+        Polynomial& operator+=(const Polynomial& other);
+        friend Polynomial operator+(const Polynomial& lhv, const Polynomial& rhv) {
+            Polynomial<TFieldType, Comp> newPolynomial = lhv;
+            newPolynomial += rhv;
+            return newPolynomial;
+        }
+        Polynomial& operator-=(const Polynomial& other);
+        friend Polynomial operator-(const Polynomial& lhv, const Polynomial& rhv) {
+            Polynomial<TFieldType, Comp> newPolynomial = lhv;
+            newPolynomial -= rhv;
+            return newPolynomial;
+        }
+        Polynomial& operator*=(const Polynomial& other);
+        friend Polynomial operator*(const Polynomial& lhv, const Polynomial& rhv) {
+            Polynomial<TFieldType, Comp> newPolynomial = lhv;
+            newPolynomial *= rhv;
+            return newPolynomial;
+        }
+        friend bool operator==(const Polynomial& lhv, const Polynomial& rhv) {
+            return lhv.polynomial_ == rhv.polynomial_;
+        }
+        friend bool operator!=(const Polynomial& lhv, const Polynomial& rhv) {
+            return !(lhv == rhv);
+        }
+
+        friend Polynomial SPolynomial(const Polynomial& lhv, const Polynomial& rhv) {
+            //
+        }
     private:
         Terms polynomial_;
     };
