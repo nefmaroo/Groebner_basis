@@ -40,8 +40,15 @@ void testMonomial() {
     if (monomial4 != monomial6)
         std::cout << "monomial4 == monomial6: \n" << "False\n\n";
 
+    // LCM test
+    std::cout << "5) Least common multiple of two monomials:\n";
+    Monomial monomial7({3, 1, 1}), monomial8({1, 2});
+    std::cout << "First monomial is " << monomial7 << "\n";
+    std::cout << "Second monomial is " << monomial8 << "\n";
+    std::cout << "LCM of two monomials is " << lcm(monomial7, monomial8) << "\n\n";
+
     // test exception
-    std::cout << "5) Test exceptions:\n";
+    std::cout << "6) Test exceptions:\n";
     try {
         std::cout << "Try to divide " << monomial4 << " by " << monomial6 << ":\n";
         std::cout << monomial4 / monomial6;
