@@ -7,7 +7,10 @@ namespace Groebner {
     class Term {
     public:
         Term() = default;
-
+        explicit Term(TFieldType coefficient): coefficient_(coefficient) {
+        }
+        explicit Term(Monomial monomial): coefficient_(TFieldType(1)), monomial_(std::move(monomial)) {
+        }
         Term(TFieldType coefficient, Monomial monomial)
                 : coefficient_(std::move(coefficient)), monomial_(std::move(monomial)) {
             reduceMonomial();
@@ -16,7 +19,7 @@ namespace Groebner {
         const Monomial& getMonomial() const;
         void setCoefficient(const TFieldType& coefficient);
         void setMonomial(const Monomial& monomial);
-        Term& operator*=(const Term<TFieldType>& other);
+        Term& operator*=(const Term& other);
 
         friend Term operator*(const Term& lhv, const Term& rhv) {
             Term newTerm = lhv;
@@ -32,19 +35,13 @@ namespace Groebner {
             return newTerm;
         }
 
-        friend bool operator==(const Term<TFieldType>& lhv, const Term<TFieldType>& rhv) {
+        friend bool operator==(const Term& lhv, const Term& rhv) {
             return (lhv.coefficient_ == rhv.coefficient_) && (lhv.monomial_ == rhv.monomial_);
         }
 
-        friend bool operator!=(const Term<TFieldType>& lhv, const Term<TFieldType>& rhv) {
+        friend bool operator!=(const Term& lhv, const Term& rhv) {
             return !(lhv == rhv);
         }
-
-        template<class Comp>
-        static bool cmp(const Term<TFieldType>& lhv, const Term<TFieldType>& rhv);
-
-        template<class Comp>
-        bool operator()(const Term<TFieldType>& lhv, const Term<TFieldType>& rhv) const;
 
     private:
         void reduceMonomial();
@@ -98,24 +95,6 @@ namespace Groebner {
     }
 
     template<class TFieldType>
-    template<class Comp>
-    bool Term<TFieldType>::cmp(const Term<TFieldType>& lhv, const Term<TFieldType>& rhv) {
-        if (lhv.getCoefficient() < rhv.getCoefficient())
-            return true;
-        else if (lhv.getCoefficient() < rhv.getCoefficient())
-            return false;
-        Comp orderType;
-        return orderType(lhv.getMonomial(), rhv.getMonomial());
-    }
-
-    template<class TFieldType>
-    template<class Comp>
-    bool Term<TFieldType>::operator()(const Term<TFieldType>& lhv, const Term<TFieldType>& rhv) const {
-        return Comp::cmp(lhv, rhv);
-    }
-
-
-    template<class TFieldType>
     std::ostream& operator<<(std::ostream& out, const Term<TFieldType>& term) noexcept {
         if (term.getCoefficient() == TFieldType(0))
             return out << 0;
@@ -127,6 +106,7 @@ namespace Groebner {
             return out << term.getCoefficient();
         return out << term.getCoefficient() << " * " << term.getMonomial();
     }
+
 }
 
 
