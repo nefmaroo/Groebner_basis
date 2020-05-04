@@ -1,12 +1,13 @@
 #include "term.h"
 #include "monomial.h"
 #include "monomial_order.h"
+#include "term_order.h"
 #include <boost/rational.hpp>
 using boost::rational;
 
 void testTerm() {
     namespace gb = Groebner;
-    using gb::Monomial, gb::Term, gb::Lex, gb::Deg, gb::LexSum;
+    using gb::Monomial, gb::Term, gb::Lex, gb::Deg, gb::LexSum, gb::TermComparisson;
 
     // input/output and get-methods test
     std::cout << "1) Test term input:\n";
@@ -60,21 +61,21 @@ void testTerm() {
     std::cout << "term8 is " << term8 << "\n\n";
 
     std::cout << "Lexicographic order: \n";
-    if (Term<int>::cmp<Lex>(term7, term5))
+    if (TermComparisson<Lex>::cmp(term5, term7))
         std:: cout << "term5 > term7\n";
-    if (Term<int>::cmp<Lex>(term5, term8))
+    if (TermComparisson<Lex>::cmp(term8, term5))
         std:: cout << "term5 < term8\n\n";
 
     std::cout << "Total degree order: \n";
-    if (Term<int>::cmp<Deg>(term7, term5))
+    if (TermComparisson<Deg>::cmp(term5, term7))
         std:: cout << "term5 > term7\n";
-    if (Term<int>::cmp<Deg>(term8, term5))
+    if (TermComparisson<Deg>::cmp(term5, term8))
         std:: cout << "term5 > term8\n\n";
 
     std::cout << "Lexicographic, then total degree order: \n";
-    if (Term<int>::cmp<LexSum<Lex, Deg>>(term7, term5))
+    if (TermComparisson<LexSum<Lex, Deg>>::cmp(term5, term7))
         std:: cout << "term5 > term7\n";
-    if (Term<int>::cmp<LexSum<Lex, Deg>>(term5, term8))
+    if (TermComparisson<LexSum<Lex, Deg>>::cmp(term8, term5))
         std:: cout << "term5 < term8\n\n";
 
 
