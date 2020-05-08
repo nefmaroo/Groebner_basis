@@ -84,7 +84,7 @@ namespace Groebner {
     Term<TFieldType>& Term<TFieldType>::operator/=(const Term<TFieldType>& other) {
         assert(other.coefficient_ != 0 && "Division by zero is detected");
         coefficient_ /= other.coefficient_;
-        monomial_ *= other.monomial_;
+        monomial_ /= other.monomial_;
         return *this;
     }
 
