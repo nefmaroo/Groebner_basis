@@ -17,10 +17,6 @@ namespace Groebner {
     template<class Comp>
     template<class TFieldType>
     bool TermComparisson<Comp>::cmp(const Term<TFieldType>& lhv, const Term<TFieldType>& rhv) {
-        if (lhv.getCoefficient() > rhv.getCoefficient())
-            return true;
-        else if (lhv.getCoefficient() < rhv.getCoefficient())
-            return false;
         Comp orderType;
         return orderType(lhv.getMonomial(), rhv.getMonomial());
     }
