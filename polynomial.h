@@ -7,7 +7,7 @@
 #include "term_order.h"
 
 namespace Groebner {
-    template<class TFieldType, class Comp = Lex> //????
+    template<class TFieldType, class Comp = Lex>
     class Polynomial {
     public:
         using Terms = std::set<Term<TFieldType>, TermComparisson<Comp>>;
@@ -25,11 +25,11 @@ namespace Groebner {
         Polynomial& operator-=(const Term<TFieldType>& term);
         Polynomial& operator*=(const Term<TFieldType>& term);
 
-        friend Polynomial& operator*(const Term<TFieldType>& term, const Polynomial& polynomial) {
-            Polynomial newPolynomial = polynomial;
-            newPolynomial *= term;
-            return newPolynomial;
+        friend Polynomial& operator*(const Term<TFieldType>& term, Polynomial polynomial) {
+            polynomial *= term;
+            return polynomial;
         }
+
 
         Polynomial& operator+=(const Polynomial& other);
         friend Polynomial operator+(const Polynomial& lhv, const Polynomial& rhv) {
@@ -57,11 +57,11 @@ namespace Groebner {
         }
 
         friend Polynomial SPolynomial(const Polynomial& lhv, const Polynomial& rhv) {
-            Term<TFieldType> lcmOfLeadingMonomials(lcm(lhv.getLeadingTerm(), rhv.getLeadingTerm()));
-            return (lcmOfLeadingMonomials / lhv.getLeadingTerm()) * lhv - (lcmOfLeadingMonomials / lhv.getLeadingTerm()) * rhv;
+            Term<TFieldType> lcmOfLeadingMonomials(lcm(lhv.getLeadingTerm().getMonomial(), rhv.getLeadingTerm().getMonomial()));
+            return (lcmOfLeadingMonomials / lhv.getLeadingTerm()) * lhv - (lcmOfLeadingMonomials / rhv.getLeadingTerm()) * rhv;
         }
     private:
-        Terms polynomial_ = Polynomial();
+        Terms polynomial_;
     };
 
     template<class TFieldType, class Comp>
@@ -88,7 +88,7 @@ namespace Groebner {
 
     template<class TFieldType, class Comp>
     Polynomial<TFieldType, Comp>& Polynomial<TFieldType, Comp>::operator+=(const Term<TFieldType>& term) {
-        if (term == TFieldType(0))
+        if (term.getCoefficient() == TFieldType(0))
             return *this;
         for (const Term<TFieldType>& currentTerm : getPolynomial()) {
             if (currentTerm.getMonomial() == term.getMonomial()) {
@@ -105,8 +105,9 @@ namespace Groebner {
 
     template<class TFieldType, class Comp>
     Polynomial<TFieldType, Comp>& Polynomial<TFieldType, Comp>::operator-=(const Term<TFieldType>& term) {
-        term.setCoefficient(TFieldType(-1) * term.getCoefficient());
-        *this += term;
+        Term<TFieldType> newTerm(TFieldType(-1) * term.getCoefficient(), term.getMonomial());
+        *this += newTerm;
+        return *this;
     }
 
     template<class TFieldType, class Comp>
