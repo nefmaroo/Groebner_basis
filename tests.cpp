@@ -3,6 +3,7 @@
 void runAllTests() {
     //testMonomial();
     //testTerm();
-    testMonomialOrder();
+    //testMonomialOrder();
+    testPolynomial();
 }
 
