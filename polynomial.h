@@ -10,9 +10,9 @@ namespace Groebner {
     template<class TFieldType, class Comp = Lex>
     class Polynomial {
     public:
-        using Terms = std::set<Term<TFieldType>, TermComparisson<Comp>>;
         // where Term<TFieldType> is a key type and Comp is a comparison function to use for all key comparisons of this container
-        using TermIndex = int64_t;
+        using Terms = std::set<Term<TFieldType>, TermOrder<Comp>>;
+        using TermIndex = unsigned int;
         Polynomial() = default;
         explicit Polynomial(const Terms& polynomial) : polynomial_(polynomial) {
         }
