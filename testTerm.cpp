@@ -7,7 +7,7 @@ using boost::rational;
 
 void testTerm() {
     namespace gb = Groebner;
-    using gb::Monomial, gb::Term, gb::Lex, gb::Deg, gb::LexSum, gb::TermComparisson;
+    using gb::Monomial, gb::Term, gb::Lex, gb::Deg, gb::LexSum, gb::TermOrder;
 
     // input/output and get-methods test
     std::cout << "1) Test term input:\n";
@@ -61,21 +61,21 @@ void testTerm() {
     std::cout << "term8 is " << term8 << "\n\n";
 
     std::cout << "Lexicographic order: \n";
-    if (TermComparisson<Lex>::cmp(term5, term7))
+    if (TermOrder<Lex>::cmp(term5, term7))
         std:: cout << "term5 > term7\n";
-    if (TermComparisson<Lex>::cmp(term8, term5))
+    if (TermOrder<Lex>::cmp(term8, term5))
         std:: cout << "term5 < term8\n\n";
 
     std::cout << "Total degree order: \n";
-    if (TermComparisson<Deg>::cmp(term5, term7))
+    if (TermOrder<Deg>::cmp(term5, term7))
         std:: cout << "term5 > term7\n";
-    if (TermComparisson<Deg>::cmp(term5, term8))
+    if (TermOrder<Deg>::cmp(term5, term8))
         std:: cout << "term5 > term8\n\n";
 
     std::cout << "Lexicographic, then total degree order: \n";
-    if (TermComparisson<LexSum<Lex, Deg>>::cmp(term5, term7))
+    if (TermOrder<LexSum<Lex, Deg>>::cmp(term5, term7))
         std:: cout << "term5 > term7\n";
-    if (TermComparisson<LexSum<Lex, Deg>>::cmp(term8, term5))
+    if (TermOrder<LexSum<Lex, Deg>>::cmp(term8, term5))
         std:: cout << "term5 < term8\n\n";
 
 
