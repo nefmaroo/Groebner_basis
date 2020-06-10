@@ -12,10 +12,10 @@ void testPolynomial() {
 
     // Input/Output test
     std::cout << "1) Test polynomial input and output:\n";
-    Polynomial<Rational> polynomial1({Term<Rational>(Rational(-2), {1, 20, 0}),
+    Polynomial<Rational, Lex> polynomial1({Term<Rational>(Rational(-2), {1, 20, 0}),
                                       Term<Rational>(Rational(1,2)), Term<Rational>(4, {6, 0, 3, 1})});
     std::cout << "polynomial1 is " << polynomial1 << "\n";
-    Polynomial<Rational> polynomial2({Term<Rational>(1, {6, 0, 3, 1}), Term<Rational>(-5, {6, 4, 8})});
+    Polynomial<Rational, Lex> polynomial2({Term<Rational>(1, {6, 0, 3, 1}), Term<Rational>(-5, {6, 4, 8})});
     std::cout << "polynomial2 is " << polynomial2 << "\n\n";
 
 
@@ -61,10 +61,19 @@ void testPolynomial() {
     // Test for S-Polynomial calculation
     std::cout << "6) Test for S-Polynomial calculation of polynomial1 and polynomial2\n";
     std::cout << "S-Polynomial of " << polynomial1 << "and " << polynomial2 << "is\n"
-    << SPolynomial(polynomial1, polynomial2);
+    << SPolynomial(polynomial1, polynomial2) << "\n\n";
 
-
-
+    // Test for reduction of one polynomial by the other one
+    std::cout << "7) Test for reduction of one polynomial by the other one\n";
+    Polynomial<Rational> polynomial3({Term<Rational>(Rational(-2), {1, 2, 0}), Term<Rational>(4, {6, 0, 3, 1}),
+                                      Term<Rational>(Rational(1), {0, 2, 4, 5})});
+    Polynomial<Rational> polynomial4({Term<Rational>(Rational(7), {1, 0, 0}), Term<Rational>(-2, {5, 0, 3, 1}),
+                                      Term<Rational>(Rational(5), {0, 2, 1, 3})});
+    std::cout << "polynomial3 is " << polynomial3 << "\npolynomial4 is " << polynomial4 <<"\n";
+    std::cout << "Reduction of polynomial3 by polynomial4 is " << polynomial3.simpleReduction(polynomial4) << "\n";
+    Polynomial<Rational> polynomial5({Term<Rational>(2,{4}),Term<Rational>(-1,{3}),Term<Rational>(5,{2}),Term<Rational>(-8,{1}),Term<Rational>(1)});
+    Polynomial<Rational> polynomial6({Term<Rational>(1,{2}),Term<Rational>(-1,{1}),Term<Rational>(1)});
+    std::cout << polynomial5.simpleReduction(polynomial6) << "\n";
 }
 
 
