@@ -19,6 +19,8 @@ namespace Groebner {
         const Monomial& getMonomial() const;
         void setCoefficient(const TFieldType& coefficient);
         void setMonomial(const Monomial& monomial);
+        bool checkIfDivisible(const Term& other) const;
+
         Term& operator*=(const Term& other);
 
         friend Term operator*(const Term& lhv, const Term& rhv) {
@@ -72,6 +74,11 @@ namespace Groebner {
     }
 
     template<class TFieldType>
+    bool Term<TFieldType>::checkIfDivisible(const Term<TFieldType>& other) const {
+        return (other.getCoefficient() != TFieldType(0)  && getMonomial().checkIfDivisible(other.getMonomial()));
+    }
+
+    template<class TFieldType>
     Term<TFieldType>& Term<TFieldType>::operator*=(const Term<TFieldType>& other) {
         coefficient_ *= other.coefficient_;
         monomial_ *= other.monomial_;
@@ -82,8 +89,9 @@ namespace Groebner {
 
     template<class TFieldType>
     Term<TFieldType>& Term<TFieldType>::operator/=(const Term<TFieldType>& other) {
-        assert(other.coefficient_ != 0 && "Division by zero is detected");
-        coefficient_ /= other.coefficient_;
+        assert(other.coefficient_ != TFieldType(0) && "Division by zero is detected");
+        if (other.coefficient_ != 0)
+            coefficient_ /= other.coefficient_;
         monomial_ /= other.monomial_;
         return *this;
     }
