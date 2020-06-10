@@ -4,6 +4,7 @@ void runAllTests() {
     //testMonomial();
     //testTerm();
     //testMonomialOrder();
-    testPolynomial();
+    //testPolynomial();
+    testPolynomialSet();
 }
 
