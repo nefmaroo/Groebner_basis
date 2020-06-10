@@ -20,6 +20,7 @@ namespace Groebner {
         DegreeType getTotalDegree() const;
         DegreeType getDegree(IndexType variableIndex) const;
         void setDegree(IndexType variableIndex, DegreeType degree);
+        bool checkIfDivisible(const Monomial& other) const;
         Monomial& operator*=(const Monomial& other);
         Monomial operator*(const Monomial& other) const;
         Monomial& operator/=(const Monomial& other);

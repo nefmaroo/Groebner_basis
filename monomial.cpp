@@ -27,6 +27,16 @@ namespace Groebner {
         degrees_[variableIndex] = degree;
     }
 
+    bool Monomial::checkIfDivisible(const Monomial& other) const {
+        if(numberOfVariables() < other.numberOfVariables()) // Cannot divide one monomial by another one
+            return false;
+        for (IndexType index = 0; index < other.numberOfVariables(); ++index) {
+            if (getDegree(index) < other.getDegree(index)) // Cannot divide one monomial by another one
+                return false;
+        }
+        return true;
+    }
+
     Monomial& Monomial::operator*=(const Monomial& other) {
         if (numberOfVariables() < other.numberOfVariables())
             degrees_.resize(other.numberOfVariables());
@@ -46,7 +56,7 @@ namespace Groebner {
     Monomial& Monomial::operator/=(const Monomial& other) {
         assert(numberOfVariables() >= other.numberOfVariables() && "Cannot divide one monomial by another one");
         for (IndexType i = 0; i < other.numberOfVariables(); ++i) {
-            assert(degrees_[i] >= other.getDegree(i) && "Cannot divide one monomial by another one"); //add details?
+            assert(degrees_[i] >= other.getDegree(i) && "Cannot divide one monomial by another one");
             degrees_[i] -= other.getDegree(i);
         }
         shrink();
