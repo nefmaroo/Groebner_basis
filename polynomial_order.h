@@ -19,6 +19,8 @@ namespace Groebner {
     template<class Comp>
     template <class TFieldType, class OtherComp>
     bool PolynomialOrder<Comp>::cmp(const Polynomial<TFieldType, OtherComp>& lhv, const Polynomial<TFieldType, OtherComp>& rhv) {
+        //Polynomial<TFieldType, Comp> lhv1(lhv.getPolynomial()), rhv1(rhv.getPolynomial());
+        //std::set<Term<TFieldType>, TermOrder<Comp>> l = lhv.getPolynomial(), r = rhv.getPolynomial();
         unsigned int min_size = std::min(lhv.numberOfTerms(), rhv.numberOfTerms());
         for (unsigned int index = 0; index < min_size; ++index) {
             if (lhv.getTerm(index) != rhv.getTerm(index))
