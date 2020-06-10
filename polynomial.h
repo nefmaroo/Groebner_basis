@@ -16,10 +16,16 @@ namespace Groebner {
         Polynomial() = default;
         explicit Polynomial(const Terms& polynomial) : polynomial_(polynomial) {
         }
+        explicit Polynomial(const Term<TFieldType>& term) {
+            polynomial_.insert(term);
+        }
         TermIndex numberOfTerms() const;
         const Term<TFieldType>& getTerm(TermIndex index) const;
         const Term<TFieldType>& getLeadingTerm() const;
         const Terms& getPolynomial() const;
+
+        bool checkIfReducable(const Polynomial& other);
+        Polynomial simpleReduction(const Polynomial& other) const;
 
         Polynomial& operator+=(const Term<TFieldType>& term);
         Polynomial& operator-=(const Term<TFieldType>& term);
@@ -72,7 +78,7 @@ namespace Groebner {
     template<class TFieldType, class Comp>
     const Term<TFieldType>& Polynomial<TFieldType, Comp>::getTerm(TermIndex index) const {
         if (index >= numberOfTerms())
-            return Term<TFieldType>();
+           return Term<TFieldType>();
         return *std::next(polynomial_.begin(), index);
     }
 
@@ -84,6 +90,26 @@ namespace Groebner {
     template<class TFieldType, class Comp>
     const typename Polynomial<TFieldType, Comp>::Terms& Polynomial<TFieldType, Comp>::getPolynomial() const {
         return polynomial_;
+    }
+
+
+    template<class TFieldType, class Comp>
+    bool Polynomial<TFieldType, Comp>::checkIfReducable(const Polynomial<TFieldType, Comp>& other) {
+        if (numberOfTerms() == 0 || other.numberOfTerms() == 0)
+            return false;
+        while (getLeadingTerm().checkIfDivisible(other.getLeadingTerm())) {
+            if (numberOfTerms() == 0)
+                return false;
+            *this -= (getLeadingTerm() / other.getLeadingTerm()) * other;
+        }
+        return true;
+    }
+
+    template<class TFieldType, class Comp>
+    Polynomial<TFieldType, Comp> Polynomial<TFieldType, Comp>::simpleReduction(const Polynomial& other) const {
+        Polynomial<TFieldType, Comp> remainder = *this;
+        if (remainder.checkIfReducable(other))
+            return remainder;
     }
 
     template<class TFieldType, class Comp>
