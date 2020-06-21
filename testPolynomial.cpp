@@ -70,10 +70,10 @@ void testPolynomial() {
     Polynomial<Rational> polynomial4({Term<Rational>(Rational(7), {1, 0, 0}), Term<Rational>(-2, {5, 0, 3, 1}),
                                       Term<Rational>(Rational(5), {0, 2, 1, 3})});
     std::cout << "polynomial3 is " << polynomial3 << "\npolynomial4 is " << polynomial4 <<"\n";
-    std::cout << "Reduction of polynomial3 by polynomial4 is " << polynomial3.simpleReduction(polynomial4) << "\n";
+    std::cout << "Reduction of polynomial3 by polynomial4 is " << polynomial3.makeSimpleReduction(polynomial4) << "\n";
     Polynomial<Rational> polynomial5({Term<Rational>(2,{4}),Term<Rational>(-1,{3}),Term<Rational>(5,{2}),Term<Rational>(-8,{1}),Term<Rational>(1)});
     Polynomial<Rational> polynomial6({Term<Rational>(1,{2}),Term<Rational>(-1,{1}),Term<Rational>(1)});
-    std::cout << polynomial5.simpleReduction(polynomial6) << "\n";
+    std::cout << polynomial5.makeSimpleReduction(polynomial6) << "\n";
 }
 
 
