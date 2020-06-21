@@ -75,7 +75,7 @@ namespace Groebner {
 
     template<class TFieldType>
     bool Term<TFieldType>::checkIfDivisible(const Term<TFieldType>& other) const {
-        return (other.getCoefficient() != TFieldType(0)  && getMonomial().checkIfDivisible(other.getMonomial()));
+        return (other.getCoefficient() != TFieldType(0) && getMonomial().checkIfDivisible(other.getMonomial()));
     }
 
     template<class TFieldType>
