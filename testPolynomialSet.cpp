@@ -7,6 +7,8 @@ void testPolynomialSet() {
     using gb::Term, gb::Polynomial, gb::PolynomialSet, gb::Lex, gb::Deg, gb::LexSum, gb::PolynomialOrder, gb::TermOrder;
     using Rational = rational<int>;
 
+    std::cout << "PolynomialSet class test:\n";
+
     // Input/Output test
     std::cout << "1) Test polynomial set input and output:\n";
     Polynomial<Rational, Lex> polynomial1({Term<Rational>(Rational(-2), {1, 20, 0}),
@@ -33,17 +35,25 @@ void testPolynomialSet() {
     PolynomialSet<Rational, Lex> polynomials1({polynomial3, polynomial4});
     std::cout << "Polynomial set1 is\n" << polynomials1 << "\n";
     std::cout << "Groebner basis for set1 is\n" << polynomials1.constructGroebnerBasis() << "\n";
-    Polynomial<Rational, Lex> polynomial5({Term<Rational>(Rational(1), {2}), Term<Rational>(Rational(-1), {0, 1})});
-    Polynomial<Rational, Lex> polynomial6({Term<Rational>(Rational(1), {3}), Term<Rational>(Rational(-1), {0, 0, 1})});
-    PolynomialSet<Rational, Lex> polynomials2({polynomial5, polynomial6});
+
+    Polynomial<Rational, Deg> polynomial5({Term<Rational>(Rational(1), {2}), Term<Rational>(Rational(-1), {0, 1})});
+    Polynomial<Rational, Deg> polynomial6({Term<Rational>(Rational(1), {3}), Term<Rational>(Rational(-1), {0, 0, 1})});
+    PolynomialSet<Rational, Deg> polynomials2({polynomial5, polynomial6});
     std::cout << "Polynomial set2 is\n" << polynomials2 << "\n";
     std::cout << "Groebner basis for set2 is\n" << polynomials2.constructGroebnerBasis() << "\n";
 
-    //Reduced Groebner basis
-    std::cout << "4) Test for Groebner basis reduction for given polynomial set:\n";
 
+    Polynomial<Rational, LexSum<Lex, Deg>> polynomial7({Term<Rational>(-1, {1, 1, 2}), Term<Rational>(2, {0, 2, 3, 1})});
+    Polynomial<Rational, LexSum<Lex, Deg>> polynomial8({Term<Rational>(-1, {1, 1, 2}), Term<Rational>(1)});
+    PolynomialSet<Rational, LexSum<Lex, Deg>> polynomials3({polynomial7, polynomial8});
+    std::cout << "Polynomial set3 is\n" << polynomials3 << "\n";
+    std::cout << "Groebner basis for set3 is\n" << polynomials3.constructGroebnerBasis() << "\n";
 
-
+    Polynomial<Rational, LexSum<Deg, Lex>> polynomial9({Term<Rational>(-1, {0, 1, 2}), Term<Rational>(2, {0, 2, 3, 1})});
+    Polynomial<Rational, LexSum<Deg, Lex>> polynomial10({Term<Rational>(-1, {1, 1, 2}), Term<Rational>(1)});
+    PolynomialSet<Rational, LexSum<Deg, Lex>> polynomials4({polynomial9, polynomial10});
+    std::cout << "Polynomial set4 is\n" << polynomials4 << "\n";
+    std::cout << "Groebner basis for set4 is\n" << polynomials4.constructGroebnerBasis() << "\n";
 
 }
 

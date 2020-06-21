@@ -9,6 +9,7 @@ void testTerm() {
     namespace gb = Groebner;
     using gb::Monomial, gb::Term, gb::Lex, gb::Deg, gb::LexSum, gb::TermOrder;
 
+    std::cout << "Term class test:\n";
     // input/output and get-methods test
     std::cout << "1) Test term input:\n";
     Monomial monomial1({5, 4, 0, 1, 0, 0}), monomial2({0, 2, 2, 3, 5});
@@ -24,7 +25,7 @@ void testTerm() {
     std::cout << "2) Test of boost/rational library usage:\n";
     rational<int> half(1,2);
     rational<int> two(2);
-    Term term3(half, monomial1), term4(two, monomial2);
+    Term term3(half, {0, 1, 2}), term4(two, monomial2);
     std::cout << "term3 is " << term3 << "\n";
     std::cout << "term4 is " << term4 << "\n\n";
 
@@ -33,9 +34,9 @@ void testTerm() {
     std::cout << "term1 * term2 =  " << term1 * term2 << "\n\n";
     term1 *= term2;
     std::cout << "term1 *= term2: \n" << "term1 = " << term1 <<"\n\n";
-    std::cout << "term3 / term4 =  " << term3 / term4 << "\n\n";
-    term3 /= term4;
-    std::cout << "term3 /= term4: \n" << "term3 = " << term3 << "\n\n";
+    std::cout << "term4 / term3 =  " << term4 / term3 << "\n\n";
+    term4 /= term3;
+    std::cout << "term4 /= term3: \n" << "term4 = " << term4 << "\n\n";
 
     // comparison test
     std::cout << "4) Test for term comparison:\n";
@@ -77,19 +78,5 @@ void testTerm() {
         std:: cout << "term5 > term7\n";
     if (TermOrder<LexSum<Lex, Deg>>::cmp(term8, term5))
         std:: cout << "term5 < term8\n\n";
-
-
-    // test exceptions
-    std::cout << "6) Test for exceptions:\n";
-    term8.setCoefficient(0);
-    std::cout << "term5 is\n coeficient: " << term5.getCoefficient() << ", monomial: {" << term5.getMonomial() << "}\n";
-    std::cout << "term8 is\n coeficient: " << term8.getCoefficient() << ", monomial: {" << term8.getMonomial() << "}\n";
-    std::cout << "Try to divide term5 by term8:\n" << term5 / term8 << "\n";
-
-
-
-
-
-
 
 }

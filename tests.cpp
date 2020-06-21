@@ -1,10 +1,10 @@
 #include "tests.h"
 
 void runAllTests() {
-    //testMonomial();
-    //testTerm();
-    //testMonomialOrder();
-    //testPolynomial();
+    testMonomial();
+    testTerm();
+    testMonomialOrder();
+    testPolynomial();
     testPolynomialSet();
 }
 

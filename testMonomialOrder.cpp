@@ -20,6 +20,8 @@ void testMonomialOrder() {
     Monomial monomial1({5, 4, 0, 1, 0, 0}),
     monomial2({0, 2, 2, 3, 5}), monomial3({1, 3, 0, 0});
 
+    std::cout << "MonomialOrder class test:\n";
+
     //LexOrder
     std::cout << "1) Lexicographic order comparison: \n";
     printComparisonResult<Lex>(monomial1, monomial2, 1, 2);

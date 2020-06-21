@@ -6,6 +6,8 @@ void testMonomial() {
     namespace gb = Groebner;
     using gb::Monomial;
 
+    std::cout << "Monomial class test:\n";
+
     // input/output test
     std::cout << "1) Test monomial input:\n";
     Monomial monomial1({5, 4, 0, 1, 0, 0}), monomial2({0, 2, 2, 3, 5});
@@ -47,15 +49,6 @@ void testMonomial() {
     std::cout << "Second monomial is " << monomial8 << "\n";
     std::cout << "LCM of two monomials is " << lcm(monomial7, monomial8) << "\n\n";
 
-    // test exception
-    std::cout << "6) Test exceptions:\n";
-    try {
-        std::cout << "Try to divide " << monomial4 << " by " << monomial6 << ":\n";
-        std::cout << monomial4 / monomial6;
-    }
-    catch(const std::exception& e) {
-        std::cerr << e.what();
-    }
 }
 
 

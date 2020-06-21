@@ -10,6 +10,8 @@ void testPolynomial() {
     using gb::Term, gb::Polynomial, gb::Lex, gb::Deg, gb::LexSum, gb::PolynomialOrder, gb::TermOrder;
     using Rational = rational<int>;
 
+    std::cout << "Polynomial class test:\n";
+
     // Input/Output test
     std::cout << "1) Test polynomial input and output:\n";
     Polynomial<Rational, Lex> polynomial1({Term<Rational>(Rational(-2), {1, 20, 0}),
