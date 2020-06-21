@@ -25,7 +25,7 @@ namespace Groebner {
         const Terms& getPolynomial() const;
 
         bool checkIfReducable(const Polynomial& other);
-        Polynomial simpleReduction(const Polynomial& other) const;
+        Polynomial makeSimpleReduction(const Polynomial& other) const;
 
         Polynomial& operator+=(const Term<TFieldType>& term);
         Polynomial& operator-=(const Term<TFieldType>& term);
@@ -106,7 +106,7 @@ namespace Groebner {
     }
 
     template<class TFieldType, class Comp>
-    Polynomial<TFieldType, Comp> Polynomial<TFieldType, Comp>::simpleReduction(const Polynomial& other) const {
+    Polynomial<TFieldType, Comp> Polynomial<TFieldType, Comp>::makeSimpleReduction(const Polynomial& other) const {
         Polynomial<TFieldType, Comp> remainder = *this;
         if (remainder.checkIfReducable(other))
             return remainder;
