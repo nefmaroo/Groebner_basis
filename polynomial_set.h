@@ -60,8 +60,7 @@ namespace Groebner {
     template<class TFieldType, class Comp>
     void PolynomialSet<TFieldType, Comp>::reduceViaSet(Polynomial<TFieldType, Comp>& sPolynomial) const {
         for (const Polynomial<TFieldType, Comp>& polynomial: getPolynomialSet()) {
-            if (sPolynomial.checkIfReducable(polynomial))
-                sPolynomial.makeSimpleReduction(polynomial);
+            sPolynomial.checkIfReducable(polynomial);
         }
     }
 
@@ -73,7 +72,8 @@ namespace Groebner {
             if (sPolynomials[index].numberOfTerms() != 0) {
                 for (const Polynomial<TFieldType, Comp>& polynomial : getPolynomialSet()) {
                     Polynomial<TFieldType, Comp> p = SPolynomial(polynomial, sPolynomials[index]);
-                    sPolynomials.push_back(p);
+                    if (p.numberOfTerms() != 0)
+                        sPolynomials.push_back(p);
                 }
                 polynomials_.insert(sPolynomials[index]);
             }
