@@ -3,7 +3,6 @@
 
 #include "polynomial.h"
 #include "polynomial_order.h"
-#include <unordered_set>
 
 namespace Groebner {
     template<class TFieldType, class Comp = Lex>
@@ -17,12 +16,10 @@ namespace Groebner {
         }
         PolynomialIndex numberOfPolynomials() const;
         const Polynomial<TFieldType, Comp>& getPolynomial(PolynomialIndex index) const;
-        const Polynomial<TFieldType, Comp>& getLeadingPolynomial() const;
         const Polynomials& getPolynomialSet() const;
         SPolynomials getAllSPolynomials() const;
-        void ReduceViaBasis(Polynomial<TFieldType, Comp>& sPolynomial) const;
+        void reduceViaSet(Polynomial<TFieldType, Comp>& sPolynomial) const;
         const PolynomialSet& constructGroebnerBasis();
-        PolynomialSet& reduceGroebnerBasis();
     private:
         Polynomials polynomials_;
     };
@@ -39,11 +36,6 @@ namespace Groebner {
         return *std::next(polynomials_.begin(), index);
     }
 
-
-    template<class TFieldType, class Comp>
-    const Polynomial<TFieldType, Comp>& PolynomialSet<TFieldType, Comp>::getLeadingPolynomial() const {
-        return getPolynomial(PolynomialIndex(0)); //assuming that leading polynomial is always at the beginning of the set
-    }
 
     template<class TFieldType, class Comp>
     const typename PolynomialSet<TFieldType, Comp>::Polynomials& PolynomialSet<TFieldType, Comp>::getPolynomialSet() const {
@@ -66,10 +58,10 @@ namespace Groebner {
     }
 
     template<class TFieldType, class Comp>
-    void PolynomialSet<TFieldType, Comp>::ReduceViaBasis(Polynomial<TFieldType, Comp>& sPolynomial) const {
+    void PolynomialSet<TFieldType, Comp>::reduceViaSet(Polynomial<TFieldType, Comp>& sPolynomial) const {
         for (const Polynomial<TFieldType, Comp>& polynomial: getPolynomialSet()) {
             if (sPolynomial.checkIfReducable(polynomial))
-                sPolynomial.simpleReduction(polynomial);
+                sPolynomial.makeSimpleReduction(polynomial);
         }
     }
 
@@ -77,7 +69,7 @@ namespace Groebner {
     const PolynomialSet<TFieldType, Comp>& PolynomialSet<TFieldType, Comp>::constructGroebnerBasis() {
         SPolynomials sPolynomials = getAllSPolynomials();
         for (PolynomialIndex index = 0; index < sPolynomials.size(); ++index) {
-            ReduceViaBasis(sPolynomials[index]);
+            reduceViaSet(sPolynomials[index]);
             if (sPolynomials[index].numberOfTerms() != 0) {
                 for (const Polynomial<TFieldType, Comp>& polynomial : getPolynomialSet()) {
                     Polynomial<TFieldType, Comp> p = SPolynomial(polynomial, sPolynomials[index]);
@@ -89,10 +81,6 @@ namespace Groebner {
         return *this;
     }
 
-//    template<class TFieldType, class Comp>
-//    PolynomialSet<TFieldType, Comp>& PolynomialSet<TFieldType, Comp>::reduceGroebnerBasis() {
-//
-//    }
 
     template<class TFieldType, class Comp>
     std::ostream& operator<<(std::ostream& out, const PolynomialSet<TFieldType, Comp>& polynomials) {
