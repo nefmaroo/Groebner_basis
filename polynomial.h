@@ -1,7 +1,6 @@
 #ifndef GROEBNER_BASIS_POLYNOMIAL_H
 #define GROEBNER_BASIS_POLYNOMIAL_H
 #include <set>
-#include <iterator>
 #include "term.h"
 #include "monomial_order.h"
 #include "term_order.h"
