@@ -36,12 +36,6 @@ void testMonomialOrder() {
 
     //LexDegOrder
     std::cout << "3) Comparison made first by lexicographic order, then by total degree order: \n";
-    printComparisonResult<LexSum<Deg, Lex>>(monomial1, monomial2, 1, 2);
-    printComparisonResult<LexSum<Deg, Lex>>(monomial2, monomial3, 3, 2);
-    printComparisonResult<LexSum<Deg, Lex>>(monomial1, monomial3, 1, 3);
-
-    //DegLexOrder
-    std::cout << "4) Comparison made first by total degree order, then by lexicographic order: \n";
     printComparisonResult<LexSum<Lex, Deg>>(monomial1, monomial2, 1, 2);
     printComparisonResult<LexSum<Lex, Deg>>(monomial2, monomial3, 3, 2);
     printComparisonResult<LexSum<Lex, Deg>>(monomial1, monomial3, 1, 3);

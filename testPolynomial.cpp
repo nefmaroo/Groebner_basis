@@ -55,10 +55,6 @@ void testPolynomial() {
     std::cout << "LexDeg order: \n";
     PolynomialOrder<LexSum<Lex, Deg>> orderTypeLexDeg;
     std::cout << std::boolalpha << "polynomial1 > polynomial2 is " << orderTypeLexDeg(polynomial1, polynomial2) << "\n\n";
-    std::cout << "DegLex order: \n";
-    PolynomialOrder<LexSum<Deg, Lex>> orderTypeDegLex;
-    std::cout << std::boolalpha << "polynomial1 > polynomial2 is " << orderTypeDegLex(polynomial1, polynomial2) << "\n\n";
-
 
     // Test for S-Polynomial calculation
     std::cout << "6) Test for S-Polynomial calculation of polynomial1 and polynomial2\n";

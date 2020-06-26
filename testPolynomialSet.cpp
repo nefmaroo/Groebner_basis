@@ -49,12 +49,6 @@ void testPolynomialSet() {
     std::cout << "Polynomial set3 is\n" << polynomials3 << "\n";
     std::cout << "Groebner basis for set3 is\n" << polynomials3.constructGroebnerBasis() << "\n";
 
-    Polynomial<Rational, LexSum<Deg, Lex>> polynomial9({Term<Rational>(-1, {0, 1, 2}), Term<Rational>(2, {0, 2, 3, 1})});
-    Polynomial<Rational, LexSum<Deg, Lex>> polynomial10({Term<Rational>(-1, {1, 1, 2}), Term<Rational>(1)});
-    PolynomialSet<Rational, LexSum<Deg, Lex>> polynomials4({polynomial9, polynomial10});
-    std::cout << "Polynomial set4 is\n" << polynomials4 << "\n";
-    std::cout << "Groebner basis for set4 is\n" << polynomials4.constructGroebnerBasis() << "\n";
-
 }
 
 
