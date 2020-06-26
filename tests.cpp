@@ -6,5 +6,6 @@ void runAllTests() {
     testMonomialOrder();
     testPolynomial();
     testPolynomialSet();
+    testCyclic();
 }
 

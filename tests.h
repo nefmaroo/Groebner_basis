@@ -6,6 +6,7 @@ void testTerm();
 void testMonomialOrder();
 void testPolynomial();
 void testPolynomialSet();
+void testCyclic();
 void runAllTests();
 
 #endif //GROEBNER_BASIS_TESTS_H
