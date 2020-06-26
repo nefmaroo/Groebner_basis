@@ -16,6 +16,9 @@ namespace Groebner {
         Monomial(std::initializer_list<DegreeType> degree_list) : degrees_(degree_list) {
             shrink();
         }
+        Monomial(Degrees degree_list) : degrees_(std::move(degree_list)) {
+            shrink();
+        }
         IndexType numberOfVariables() const;
         DegreeType getTotalDegree() const;
         DegreeType getDegree(IndexType variableIndex) const;
