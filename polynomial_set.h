@@ -17,6 +17,7 @@ namespace Groebner {
         PolynomialIndex numberOfPolynomials() const;
         const Polynomial<TFieldType, Comp>& getPolynomial(PolynomialIndex index) const;
         const Polynomials& getPolynomialSet() const;
+        Polynomials& getPolynomialSet();
         SPolynomials getAllSPolynomials() const;
         void reduceViaSet(Polynomial<TFieldType, Comp>& sPolynomial) const;
         const PolynomialSet& constructGroebnerBasis();
@@ -41,6 +42,12 @@ namespace Groebner {
     const typename PolynomialSet<TFieldType, Comp>::Polynomials& PolynomialSet<TFieldType, Comp>::getPolynomialSet() const {
         return polynomials_;
     }
+
+    template<class TFieldType, class Comp>
+    typename PolynomialSet<TFieldType, Comp>::Polynomials& PolynomialSet<TFieldType, Comp>::getPolynomialSet() {
+        return polynomials_;
+    }
+
 
 
     template<class TFieldType, class Comp>
@@ -72,6 +79,7 @@ namespace Groebner {
             if (sPolynomials[index].numberOfTerms() != 0) {
                 for (const Polynomial<TFieldType, Comp>& polynomial : getPolynomialSet()) {
                     Polynomial<TFieldType, Comp> p = SPolynomial(polynomial, sPolynomials[index]);
+                    //std::cout << p << "\n";
                     if (p.numberOfTerms() != 0)
                         sPolynomials.push_back(p);
                 }
